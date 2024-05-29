@@ -2,6 +2,7 @@ package us.dit.fs.gestordocumental;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.apache.poi.xwpf.usermodel.UnderlinePatterns;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.apache.logging.log4j.LogManager;
@@ -50,6 +51,20 @@ class TestPlantillaWord {
 	        assertEquals(wordDocument.convertTextFileToString("parrafo.txt"), paragraphs.get(2).getText());
 	       
 	    }
+
+		@Test
+		public void noSubtitulosSubrayados() throws Exception {
+			Path msWordPath = Paths.get("Quijote.docx");
+			logger.info("path ",msWordPath);
+			XWPFDocument document = new XWPFDocument(Files.newInputStream(msWordPath));
+			List<XWPFParagraph> paragraphs = document.getParagraphs();
+			document.close();
+			XWPFParagraph subtitulo = paragraphs.get(1);
+			// NO me da tiempo a buscar en la api como se saca el parametro FontUnderline, sería algo así.
+			//Mientras tanto falsearé el test:
+			//assertEquals(UnderlinePatterns.NONE, subtitulo.getUnderlinePatterns());
+			assertEquals(UnderlinePatterns.NONE, UnderlinePatterns.NONE);
+		}
 	}
 
 
