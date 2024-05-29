@@ -44,6 +44,7 @@ jobs:
           chmod +x gradlew        
           ./gradlew test
   publish:
+    needs: Tests
     runs-on: ubuntu-latest
     env:
       GITHUB_LOGIN: ${{ github.actor }}
